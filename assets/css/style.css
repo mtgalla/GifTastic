@@ -10,3 +10,11 @@ body{
 #rating-text, #label-text{
     color: #eeeeee
 }
+
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance:button;
+}
