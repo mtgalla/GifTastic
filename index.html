@@ -25,7 +25,7 @@
 
 <body>
 <div class="container col-12">
-        <div class="btn-group mr-2" role="group">
+        <div class="btn-group mr-2 col-xs-10" role="group">
     <div class="btn-toolbar" role="toolbar" >
   <div type="button" class="btn btn-info" id="buttons">
 
@@ -62,23 +62,29 @@ Only once you get images displaying with button presses should you move on to th
 Add a form to your page takes the value from a user input box and adds it into your topics array. 
 Then make a function call that takes each topic in the array remakes the buttons on the page.-->
 
+
+
+
+
 <div class = "container">
+<!--Form added to page for user input-->
+<div class="col-xs-12 col-md-3 col-lg-3" id="form-style">
+    <form>
+      <div class="form-group">
+          <label for="InputBand" id="label-text">Add a Band</label>
+          <input type="band" class="form-control" id="band-input" placeholder="Band">
+      </div>
+        <button type="submit" class="btn btn-secondary" id="add-band">Enter</button>
+    </form>
+    </div>
+
+
   <div class = "row">
-    <div class= "col-8">
+    <div class= "col-md-12 col-8">
       <div id="gifs-appear-here">
     </div>
   </div>
 
-<!--Form added to page for user input-->
-  <div class="col-3">
-  <form>
-    <div class="form-group">
-        <label for="InputBand" id="label-text">Add a Band</label>
-        <input type="band" class="form-control" id="band-input" placeholder="Band">
-    </div>
-      <button type="submit" class="btn btn-secondary" id="add-band">Enter</button>
-  </form>
-  </div>
   </div>
   </div>
 
