@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> 
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+  <title>GifTastic</title>
+  <style type="text/css">
+    button,
+    div,
+    form,
+    input {
+      margin: 10px;
+    }
+    .container{
+        display:inline;
+    }
+
+  </style>
+</head>
+
+<body>
+<div class="container col-12">
+        <div class="btn-group mr-2" role="group">
+    <div class="btn-toolbar" role="toolbar" >
+  <div type="button" class="btn btn-info" id="buttons">
+
+    </div>
+    </div>
+
+</div>
+    
+
+<!--Before you can make any part of our site work, you need to create an array of strings, 
+    each one related to a topic that interests you. Save it to a variable called topics.
+
+
+We chose animals for our theme, but you can make a list to your own liking.
+
+
+
+Your app should take the topics in this array and create buttons in your HTML.
+
+
+Try using a loop that appends a button for each string in the array.
+
+
+When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
+When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
+
+Under every gif, display its rating (PG, G, so on).
+
+
+This data is provided by the GIPHY API.
+Only once you get images displaying with button presses should you move on to the next step.
+
+
+Add a form to your page takes the value from a user input box and adds it into your topics array. 
+Then make a function call that takes each topic in the array remakes the buttons on the page.-->
+
+<div class = "container">
+  <div class = "row">
+    <div class= "col-8">
+      <div id="gifs-appear-here">
+    </div>
+  </div>
+
+<!--Form added to page for user input-->
+  <div class="col-3">
+  <form>
+    <div class="form-group">
+        <label for="InputBand" id="label-text">Add a Band</label>
+        <input type="band" class="form-control" id="band-input" placeholder="Band">
+    </div>
+      <button type="submit" class="btn btn-secondary" id="add-band">Enter</button>
+  </form>
+  </div>
+  </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+//Array of topics
+  var topics = ["Pearl Jam","Def Leppard","Rolling Stones","Beastie Boys","Run-DMC"];
+
+  function displayTopicInfo() {
+    //$("button").on("click", function() {
+        console.log("test");
+      var topic = $(this).attr("data-name");
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        topic + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+        .then(function(response) {
+          //var results = response.data;
+          for (let i = 0; i < response.data.length; i++){
+          console.log("Rating: " + response.data[i].rating);
+          console.log(response.data[i].images.downsized_large.url);
+          console.log(response.data.length);
+            var gifDiv = $("<div id='gifMove'>");
+            var ratings = response.data[i].rating;
+            var p = $("<p id='rating-text'>").text("Rating: " + ratings);
+            var image = $("<img>").attr("src", response.data[i].images.fixed_height_still.url);
+            image.attr("data-still", response.data[i].images.fixed_height_still.url);
+            image.attr("data-animate", response.data[i].images.fixed_height.url);
+            image.attr("data-state", "still");
+            image.addClass("gif-click");
+            gifDiv.prepend(p);
+            gifDiv.prepend(image);
+            $("#gifs-appear-here").prepend(gifDiv);
+
+          }
+
+          $(".gif-click").on("click", function() {
+        console.log(true);
+       var state = $(this).attr("data-state");
+       if (state === "still"){
+           console.log(true);
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
+          }
+          else{
+
+          if (state === "animate"){
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-animate", "still");
+          }
+        }
+   });
+        });
+   };
+
+
+      //Function for displaying movie data
+      function renderButtons() {
+
+// Deletes the movies prior to adding new movies
+// (this is necessary otherwise you will have repeat buttons)
+$("#buttons").empty();
+//$("#gifs-appear-here").empty();
+// Loops through the array of movies
+for (var i = 0; i < topics.length; i++) {
+
+  // Creates buttons for each topic in the array
+  var a = $("<button class='btn btn-secondary'>");
+  // Adds a class of topic to our button
+  a.addClass("topic");
+  // Added a data-attribute
+  a.attr("data-name", topics[i]);
+  // Provided the initial button text
+  a.text(topics[i]);
+  // Added the button to the buttons div
+  $("#buttons").append(a);
+}
+}
+
+$("#add-band").on("click", function(event){
+  event.preventDefault();
+  var bandInput = $("#band-input").val().trim();
+  console.log(bandInput);
+
+  topics.push(bandInput);
+  console.log(topics);
+  renderButtons();
+
+
+})
+
+
+$(document).on("click", ".topic", displayTopicInfo);
+   // Calling renderButtons which handles the processing of our topic array
+   renderButtons();
+
+
+
+
+
+  </script>
+  </div>
+</body>
+
+</html>

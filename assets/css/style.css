@@ -1,0 +1,11 @@
+body{
+    background-image: url("../images/background.png");
+}
+
+#gifMove{
+    float: left;
+}
+
+#rating-text, #label-text{
+    color: #eeeeee
+}
