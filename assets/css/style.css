@@ -1,13 +1,13 @@
 body{
     background-image: url("../images/background.png");
-    margin-right:20px;
+    /*margin-right:20px;*/
 }
 
 #gifMove{
     float: left;
 }
 
-#rating-text, #label-text{
+#rating-text, #label-text, #title-text{
     color: #eeeeee
 }
 
@@ -18,3 +18,15 @@ button,
 [type="submit"] {
   -webkit-appearance:button;
 }
+
+
+button,
+div,
+form,
+input {
+      margin: 10px;
+    }
+
+    .container{
+        display:inline;
+    }
