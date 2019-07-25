@@ -1,32 +1,30 @@
 body{
-    background-image: url("../images/background.png");
+  background-image: url("../images/background.png");
     /*margin-right:20px;*/
 }
 
 #gifMove{
-    float: left;
+  float: left;
 }
 
 #rating-text, #label-text, #title-text{
-    color: #eeeeee
+  color: #eeeeee
 }
 
-
-button,
+/* button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
   -webkit-appearance:button;
-}
-
+} */
 
 button,
 div,
 form,
 input {
-      margin: 10px;
-    }
+  margin: 10px;
+}
 
-    .container{
-        display:inline;
-    }
+.container{
+  display:inline;
+}
