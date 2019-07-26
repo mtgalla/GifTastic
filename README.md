@@ -4,6 +4,9 @@ https://mtgalla.github.io/GifTastic/
 ### Band of GIFs
 
 Click a band button to see the current band's gifs.
+
+![GifTastic image](/assets/images/untitled.png)
+
 Then click on a gif to see the animation.
 Click again to get the animation to stop.
 

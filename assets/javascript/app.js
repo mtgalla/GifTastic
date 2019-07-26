@@ -1,52 +1,54 @@
 //Array of topics
-var topics = ["Pearl Jam","Def Leppard","Rolling Stones","Beastie Boys","Run-DMC"];
+var topics = ["The Ramones", "The Strokes", "Imagine Dragons", "Pearl Jam", "Rolling Stones"];
 
 //function to get giphy API data, store it, then add attributes with data to html
 function displayTopicInfo() {
+  $(".instructions").empty();
   $("#gifs-appear-here").empty();
-    const topic = $(this).attr("data-name");
-    let queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-      topic + "&api_key=dc6zaTOxFJmzC&limit=10";
+  $(".instructions").append("<p>Click on gifs to start or stop animation</p>")
+  const topic = $(this).attr("data-name");
+  let queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+    topic + "&api_key=dc6zaTOxFJmzC&limit=10";
 
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    })
-      .then(function(response) {
-        for (let i = 0; i < response.data.length; i++){
-          console.log("Rating: " + response.data[i].rating);
-          console.log(response.data[i].images.downsized_large.url);
-          console.log(response.data.length);
-          const gifDiv = $("<div id='gifMove'>");
-          const ratings = response.data[i].rating;
-          const p = $("<p id='rating-text'>").text("Rating: " + ratings);
-          const image = $("<img>").attr("src", response.data[i].images.fixed_height_still.url);
-          image.attr("data-still", response.data[i].images.fixed_height_still.url);
-          image.attr("data-animate", response.data[i].images.fixed_height.url);
-          image.attr("data-state", "still");
-          image.addClass("gif-click");
-          gifDiv.prepend(p);
-          gifDiv.prepend(image);
-          $("#gifs-appear-here").prepend(gifDiv);
-        }
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+  .then(function(response) {
+    for (let i = 0; i < response.data.length; i++){
+      console.log("Rating: " + response.data[i].rating);
+      console.log(response.data[i].images.downsized_large.url);
+      console.log(response.data.length);
+      const gifDiv = $("<div id='gifMove'>");
+      const ratings = response.data[i].rating;
+      const p = $("<p id='rating-text'>").text("Rating: " + ratings);
+      const image = $("<img>").attr("src", response.data[i].images.fixed_height_still.url);
+      image.attr("data-still", response.data[i].images.fixed_height_still.url);
+      image.attr("data-animate", response.data[i].images.fixed_height.url);
+      image.attr("data-state", "still");
+      image.addClass("gif-click");
+      gifDiv.prepend(p);
+      gifDiv.prepend(image);
+      $("#gifs-appear-here").prepend(gifDiv);
+    }
 
-      // on click if gifs are still then animate or if gifs are animated then make them still
-        $(".gif-click").on("click", function() {
+  // on click if gifs are still then animate or if gifs are animated then make them still
+    $(".gif-click").on("click", function() {
+      console.log(true);
+      let state = $(this).attr("data-state");
+      if (state === "still") {
         console.log(true);
-        const state = $(this).attr("data-state");
-        if (state === "still"){
-          console.log(true);
-          $(this).attr("src", $(this).attr("data-animate"));
-          $(this).attr("data-state", "animate");
-          }
-        else {
-          if (state === "animate"){
-          $(this).attr("src", $(this).attr("data-still"));
-          $(this).attr("data-animate", "still");
-          }
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
         }
-      });
-      });
+      else {
+        if (state === "animate"){
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+        }
+      }
+    });
+});
  };
 
 //Function for displaying buttons

@@ -7,7 +7,7 @@ body{
   float: left;
 }
 
-#rating-text, #label-text, #title-text{
+#rating-text, #label-text, #title-text, .instructions {
   color: #eeeeee
 }
 
